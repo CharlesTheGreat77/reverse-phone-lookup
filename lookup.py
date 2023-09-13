@@ -2,6 +2,7 @@ from playwright_stealth import stealth_sync
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 import re, sys
+from argparse import ArgumentParser
 
 def scrape_data(html):
     pattern = r'gResults:\s*\'(.*?)\''
@@ -45,32 +46,74 @@ def get_info(data):
         if name in relatives:
             name = name.replace('"', '')
             family_names.append(name)
-    
     return full_name, addy_list, family_names
-    
-def main(phone_number):
+
+
+def encode_args(unencoded_args):
+    split_list = unencoded_args.split(' ')
+    encoded_data = ''
+    if (len(split_list) > 1):
+        encoded_data+= split_list[0]
+        for i in range(1, len(split_list)):
+            encoded_data  += f'-{split_list[i]}'
+    else:
+        encoded_data += unencoded_args # only needs to be encoded if there's spaces
+    return encoded_data.lower()
+
+def get_content(url):
     with sync_playwright() as p:
         browser = p.webkit.launch()
         context = browser.new_context()
         page = context.new_page()
         stealth_sync(page)
-        page.goto(f'https://usphonebook.com/{phone_number}')
-        page.wait_for_timeout(5000) # wait for 5 sec
+        page.goto(url)
+        page.wait_for_timeout(5000)
         html_content = page.content()
         browser.close()
 
     soup = BeautifulSoup(html_content, 'html.parser')
     html = str(soup.prettify)
-    data = scrape_data(html)
-    if data != False:
-        full_name, addy_list, family_names = get_info(data)
-        print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{phone_number}')
-    else:
-        print(f'[-] Returned None as results.. try this\nURL: https://usphonebook.com/{phone_number}')
+    return html
+
+def main():
+    parser = ArgumentParser(description="Reverse Phone Lookup with Playwright")
+    parser.add_argument('-p', '--phone_number', help='phone number formatted like 999-111-2222', type=str, required=False)
+    parser.add_argument('-n', '--name', help='name of the individual [first last]', type=str, required=False)
+    parser.add_argument('-c', '--city', help='enter the city the individual resides [only used with -p]', type=str, required=False)
+    parser.add_argument('-s', '--state', help='enter the state the individual resides [only used with -p]', type=str, required=False)
+    args = parser.parse_args()
+
+    phone_number = args.phone_number
+    name = args.name
+    city = args.city
+    state = args.state
+
+    if phone_number:
+        if len(phone_number) != 12:
+            print("usage: python3 lookup.py 999-222-1111")
+            exit(0)
+        else:
+            url = f'https://usphonebook.com/{phone_number}'
+            html = get_content(url)
+            target_content = scrape_data(html)
+            full_name, addy_list, family_names = get_info(target_content)
+            print("[*] Results")
+            print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{phone_number}')
+    if name:
+        if name and state:
+            encoded_name = encode_args(name)
+            encoded_state = encode_args(state)
+            if city:
+                encoded_city = encode_args(city)
+                url = f'https://usphonebook.com/{encoded_name}/{encoded_state}/{encoded_city}'
+            else:
+                url = f'https://usphonebook.com/{encoded_name}/{encoded_state}'
+            html = get_content(url)
+            target_content = scrape_data(html)
+            full_name, addy_list, family_names = get_info(target_content)
+            print("[*] Results")
+            print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{phone_number}')
+
 
 if __name__=='__main__':
-    phone_number = sys.argv[1]
-    if len(phone_number) != 12:
-        print("usage: python3 main.py 987-654-3221")
-    else:
-        main(phone_number)
+    main()

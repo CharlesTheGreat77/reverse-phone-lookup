@@ -37,6 +37,13 @@ usage: python3 lookup.py -n 'John Doe' -s 'california' -c 'Santa Monica'
        python3 lookup.py -n 'John Woe' -s Hawaii
 ```
 
+# Content
+- Owner
+- Current Address
+- Past Addresses
+- Relatives & Associates
+- Carrier
+
 # Playwright
 https://playwright.dev/python/docs/intro
 

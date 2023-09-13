@@ -34,3 +34,8 @@ playwright install
 ```
 usage: python3 lookup.py 999-888-3333
 ```
+
+# Note
+Line 49: p.webkit.launch()
+         - Can be changed to chromium or firefox instead of webkit.
+         - Will update more sources for osint data later but usphonebook tends to do real well

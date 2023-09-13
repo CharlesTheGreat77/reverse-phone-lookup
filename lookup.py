@@ -74,7 +74,7 @@ def main(phone_number):
         full_name, addy_list, family_names = get_info(data)
         print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{phone_number}')
     else:
-        print(f'[-] Returned None as resuslts.. try this\nURL: https://usphonebook.com/{phone_number}')
+        print(f'[-] Returned None as results.. try this\nURL: https://usphonebook.com/{phone_number}')
 
 if __name__=='__main__':
     phone_number = sys.argv[1]

@@ -55,7 +55,7 @@ def main(phone_number):
         page = context.new_page()
         stealth_sync(page)
         page.goto(f'https://usphonebook.com/{phone_number}')
-        page.wait_for_timeout(5000)
+        page.wait_for_timeout(5000) # wait for 5 sec
         html_content = page.content()
         browser.close()
 

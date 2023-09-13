@@ -46,7 +46,7 @@ def get_info(data):
 
 def main(phone_number):
     with sync_playwright() as p:
-        browser = p.webkit.launch()
+        browser = p.chromium.launch()
         context = browser.new_context()
         page = context.new_page()
         stealth_sync(page)

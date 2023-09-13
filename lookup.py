@@ -60,7 +60,7 @@ def encode_args(unencoded_args):
         encoded_data += unencoded_args # only needs to be encoded if there's spaces
     return encoded_data.lower()
 
-def get_content(url):
+def get_content_from_usphonebook(url):
     with sync_playwright() as p:
         browser = p.webkit.launch()
         context = browser.new_context()
@@ -70,10 +70,31 @@ def get_content(url):
         page.wait_for_timeout(5000)
         html_content = page.content()
         browser.close()
+        html = soup_html(html_content)
+        return html
 
-    soup = BeautifulSoup(html_content, 'html.parser')
+def get_content_from_spydialer(url, phone_number):
+    with sync_playwright() as p:
+        browser = p.webkit.launch()
+        context = browser.new_context()
+        page = context.new_page()
+        stealth_sync(page)
+        page.goto(url)
+        page.fill('input#SearchTextBox', phone_number)
+        page.click('input[value="Search"]')
+        print("[*] Waiting for 6 seconds..")
+        page.wait_for_timeout(6000)
+        page.click('input[value="Search"]')
+        page.wait_for_timeout(10000)
+        html_content = page.content()
+        browser.close()
+        return html_content
+
+def soup_html(html):
+    soup = BeautifulSoup(html, 'html.parser')
     html = str(soup.prettify)
     return html
+
 
 def main():
     parser = ArgumentParser(description="Reverse Phone Lookup with Playwright")
@@ -94,11 +115,34 @@ def main():
             exit(0)
         else:
             url = f'https://usphonebook.com/{phone_number}'
-            html = get_content(url)
+            html = get_content_from_usphonebook(url)
             target_content = scrape_data(html)
             full_name, addy_list, family_names = get_info(target_content)
-            print("[*] Results")
+            url = 'https://spydialer.com'
+            target_content = get_content_from_spydialer(url, phone_number)
+            soup = BeautifulSoup(target_content, 'html.parser')
+            name_element = soup.find('a', id='ctl00_ContentPlaceHolder1_NameLinkButton')
+            name = name_element.text if name_element else None
+            message_element = soup.find('span', id='ctl00_ContentPlaceHolder1_DataMessageLabel')
+            message = message_element.text if message_element else None
+            carrier = re.findall(r'\b[A-Z]+(?:\W+[A-Z]+)*', message)
+            for provider in carrier:
+                split_carrier = provider.split(' ')
+                if 'AT&T' in split_carrier:
+                    carrier = 'AT&T'
+                elif 'TMOBILE' in split_carrier:
+                    carrier = 'TMOBILE'
+                elif 'VERIZON' in split_carrier:
+                    carrier = 'Verizon'
+                elif 'METROPCS' in split_carrier:
+                    carrier = 'MetroPCS'
+                else:
+                    carrier = None
+
+            print("[*] Results from usphonebook:")
             print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{phone_number}')
+            print(f'[*] Results from spydialer\nOwner: {name}\nCarrier: {message}')
+
     if name:
         if name and state:
             encoded_name = encode_args(name)
@@ -108,12 +152,11 @@ def main():
                 url = f'https://usphonebook.com/{encoded_name}/{encoded_state}/{encoded_city}'
             else:
                 url = f'https://usphonebook.com/{encoded_name}/{encoded_state}'
-            html = get_content(url)
+            html = get_content_from_usphonebook(url)
             target_content = scrape_data(html)
             full_name, addy_list, family_names = get_info(target_content)
-            print("[*] Results")
-            print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{phone_number}')
-
+            print("[*] Results from usphonebook")
+            print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{url}\n')
 
 if __name__=='__main__':
     main()

@@ -157,7 +157,7 @@ def main():
             target_content = scrape_data(html)
             full_name, addy_list, family_names = get_info(target_content)
             print("[*] Results from usphonebook")
-            print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{url}\n')
+            print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: {url}\n')
 
 if __name__=='__main__':
     main()

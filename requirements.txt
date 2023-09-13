@@ -1,0 +1,3 @@
+pip install pytest-playwright
+pip install playwright-stealth
+bs4

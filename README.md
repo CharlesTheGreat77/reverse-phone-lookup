@@ -35,6 +35,9 @@ playwright install
 usage: python3 lookup.py 999-888-3333
 ```
 
+# Playwright
+https://playwright.dev/python/docs/intro
+
 # Note
 Line 49: p.webkit.launch()
          - Can be changed to chromium or firefox instead of webkit.

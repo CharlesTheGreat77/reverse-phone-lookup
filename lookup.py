@@ -101,8 +101,8 @@ def main():
     parser = ArgumentParser(description="Reverse Phone Lookup with Playwright")
     parser.add_argument('-p', '--phone_number', help='phone number formatted like 999-111-2222', type=str, required=False)
     parser.add_argument('-n', '--name', help='name of the individual [first last]', type=str, required=False)
-    parser.add_argument('-c', '--city', help='enter the city the individual resides [only used with -p]', type=str, required=False)
-    parser.add_argument('-s', '--state', help='enter the state the individual resides [only used with -p]', type=str, required=False)
+    parser.add_argument('-c', '--city', help='enter the city the individual resides [only used with -n]', type=str, required=False)
+    parser.add_argument('-s', '--state', help='enter the state the individual resides [only used with -n]', type=str, required=False)
     args = parser.parse_args()
 
     phone_number = args.phone_number

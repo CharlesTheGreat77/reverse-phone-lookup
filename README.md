@@ -16,5 +16,5 @@ playwright install
 
 # Usage
 ```
-usage: python3 lookup.py 9998883333
+usage: python3 lookup.py 999-888-3333
 ```

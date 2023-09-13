@@ -48,14 +48,6 @@ def get_info(data):
     
     return full_name, addy_list, family_names
     
-     # find link for firstname_id_xxx
-    # full_name_list = full_name.split()
-    # split_name = full_name.split()
-    # encoded_name = '-'.join(split_name).lower()
-    # encoded_url = re.search(encoded_name + r'_id_(.*?),', json_str)
-    # encoded_url = encoded_url.group(1)
-    # target_url = f'https://usphonebook.com/{encoded_name}_id_{encoded_url}'
-
 def main(phone_number):
     with sync_playwright() as p:
         browser = p.webkit.launch()

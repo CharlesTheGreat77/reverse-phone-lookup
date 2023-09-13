@@ -22,9 +22,13 @@ def scrape_data(html):
 
 def get_info(data):
     # full name
-    pattern = r'fullName":(.*?),'
-    full_name = re.search(pattern, data)
-    full_name = full_name.group(1).replace('"', '')
+    try:
+        pattern = r'fullName":(.*?),'
+        full_name = re.search(pattern, data)
+        full_name = full_name.group(1).replace('"', '')
+    except Exception as msg:
+        print("[-] No data found..")
+        exit(0)
 
     # address and address history
     pattern = r'fullAddress":(.*?):' 
@@ -43,10 +47,18 @@ def get_info(data):
             family_names.append(name)
     
     return full_name, addy_list, family_names
+    
+     # find link for firstname_id_xxx
+    # full_name_list = full_name.split()
+    # split_name = full_name.split()
+    # encoded_name = '-'.join(split_name).lower()
+    # encoded_url = re.search(encoded_name + r'_id_(.*?),', json_str)
+    # encoded_url = encoded_url.group(1)
+    # target_url = f'https://usphonebook.com/{encoded_name}_id_{encoded_url}'
 
 def main(phone_number):
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        browser = p.webkit.launch()
         context = browser.new_context()
         page = context.new_page()
         stealth_sync(page)

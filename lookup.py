@@ -141,8 +141,8 @@ def main():
                     carrier = 'Unknown'
 
             print("[*] Results from usphonebook:")
-            print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{phone_number}')
-            print(f'[*] Results from spydialer\nOwner: {name}\nCarrier: {message}')
+            print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{phone_number}\n\n')
+            print(f'[*] Results from spydialer\nOwner: {name}\nCarrier: {carrier}\n\n')
 
     if name:
         if name and state:

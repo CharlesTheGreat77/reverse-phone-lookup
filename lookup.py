@@ -137,7 +137,7 @@ def main():
                 elif 'METROPCS' in split_carrier:
                     carrier = 'MetroPCS'
                 else:
-                    carrier = None
+                    carrier = 'Unknown'
 
             print("[*] Results from usphonebook:")
             print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: https://usphonebook.com/{phone_number}')

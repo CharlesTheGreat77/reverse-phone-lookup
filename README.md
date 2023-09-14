@@ -32,7 +32,7 @@ playwright install
 
 # Usage
 ```
-usage: python3 lookup.py -n 'John Doe' -s 'california' -c 'Santa Monica'
+usage: python3 lookup.py -n 'John Doe' -s california -c 'Santa Monica'
        python3 lookup.py -p 777-111-2222
        python3 lookup.py -n 'John Woe' -s Hawaii
 ```

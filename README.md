@@ -51,3 +51,5 @@ https://playwright.dev/python/docs/intro
 Line 49: p.webkit.launch()
          - Can be changed to chromium or firefox instead of webkit.
          - Will update more sources for osint data later but usphonebook tends to do real well
+
+additionally, playwright on rpi devices must use a docker for playwright

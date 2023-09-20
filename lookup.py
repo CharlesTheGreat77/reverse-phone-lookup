@@ -112,7 +112,7 @@ def main():
 
     if phone_number:
         if len(phone_number) != 12:
-            print("usage: python3 lookup.py 999-222-1111")
+            print(parser.usage)
             exit(0)
         else:
             url = f'https://usphonebook.com/{phone_number}'

@@ -67,7 +67,7 @@ def get_content_from_usphonebook(url):
         page = context.new_page()
         stealth_sync(page)
         page.goto(url)
-        page.wait_for_timeout(5000)
+        page.wait_for_timeout(1500)
         html_content = page.content()
         browser.close()
         html = soup_html(html_content)
@@ -77,7 +77,6 @@ def soup_html(html):
     soup = BeautifulSoup(html, 'html.parser')
     html = str(soup.prettify)
     return html
-
 
 def main():
     parser = ArgumentParser(description="Reverse Phone Lookup with Playwright")

@@ -50,11 +50,7 @@ https://playwright.dev/python/docs/intro
 # Note
 Line 49: p.chromium.launch()
          - Can be changed to webkit or firefox instead of chromium.
-         - Will update more sources for osint data later but usphonebook tends to do real well
-
-
-# UPDATE
-Due to spydialer now adding captchas... I removed such in search for a better alternative. 
+         - Due to spydialer now adding captchas... I removed such in search for a better alternative. 
          - additionally, headless mode is disabled due to goofy response when in headless mode.
            You can remove headless mode on Line: 49 by deleting this in p.chromium.launch "headless=False". 
 

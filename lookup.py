@@ -62,7 +62,7 @@ def encode_args(unencoded_args):
 
 def get_content_from_usphonebook(url):
     with sync_playwright() as p:
-        browser = p.webkit.launch()
+        browser = p.chromium.launch(headless=False)
         context = browser.new_context()
         page = context.new_page()
         stealth_sync(page)

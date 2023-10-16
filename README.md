@@ -56,4 +56,3 @@ Line 49: p.chromium.launch()
          - additionally, headless mode is disabled due to goofy response when in headless mode.
            You can remove headless mode on Line: 49 by deleting this in p.chromium.launch "headless=False". 
 
-additionally, playwright on rpi devices must use a docker for playwright

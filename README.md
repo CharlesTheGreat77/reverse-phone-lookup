@@ -48,8 +48,14 @@ usage: python3 lookup.py -n 'John Doe' -s california -c 'Santa Monica'
 https://playwright.dev/python/docs/intro
 
 # Note
-Line 49: p.webkit.launch()
-         - Can be changed to chromium or firefox instead of webkit.
+Line 49: p.chromium.launch()
+         - Can be changed to webkit or firefox instead of chromium.
          - Will update more sources for osint data later but usphonebook tends to do real well
+
+
+# UPDATE
+Due to spydialer now adding captchas... I removed such in search for a better alternative. 
+         - additionally, headless mode is disabled due to goofy response when in headless mode.
+           You can remove headless mode on Line: 49 by deleting this in p.chromium.launch "headless=False". 
 
 additionally, playwright on rpi devices must use a docker for playwright

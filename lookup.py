@@ -95,7 +95,6 @@ def get_content_from_usphonebook(url):
     with sync_playwright() as p:
         devices = p.devices
         rand_device = random.choice(list(devices.keys()))
-        print(f'[*] Using device: {rand_device}')
         device = p.devices[rand_device]
         browser = p.webkit.launch()
         context = browser.new_context(**device,)

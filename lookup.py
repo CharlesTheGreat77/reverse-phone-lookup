@@ -5,8 +5,6 @@ from argparse import ArgumentParser
 
 def get_url_of_user(html):
     soup = BeautifulSoup(html, 'html.parser')
-    with open('data.html', 'w') as file:
-        file.write(str(soup.prettify))
     try:
         link = soup.find_all('input', {'name':'link'})
         owner = link[-1]['value']

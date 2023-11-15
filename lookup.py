@@ -1,7 +1,6 @@
-from playwright_stealth import stealth_sync
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
-import re, sys
+import re, random
 from argparse import ArgumentParser
 
 def scrape_data(html):
@@ -62,12 +61,16 @@ def encode_args(unencoded_args):
 
 def get_content_from_usphonebook(url):
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        devices = p.devices
+        rand_device = random.choice(list(devices.keys()))
+        print(f'[*] Using device: {rand_device}')
+        device = p.devices[rand_device]
+        browser = p.webkit.launch()
+        context = browser.new_context(**device,)
         context = browser.new_context()
         page = context.new_page()
-        stealth_sync(page)
         page.goto(url)
-        page.wait_for_timeout(1500)
+        page.wait_for_timeout(random.randint(1500, 2500))
         html_content = page.content()
         browser.close()
         html = soup_html(html_content)
@@ -77,6 +80,7 @@ def soup_html(html):
     soup = BeautifulSoup(html, 'html.parser')
     html = str(soup.prettify)
     return html
+
 
 def main():
     parser = ArgumentParser(description="Reverse Phone Lookup with Playwright")
@@ -116,7 +120,7 @@ def main():
             html = get_content_from_usphonebook(url)
             target_content = scrape_data(html)
             full_name, addy_list, family_names = get_info(target_content)
-            print("[*] Results from usphonebook")
+            print("[*] Results from usphonebook.com")
             print(f'Phone Number: {phone_number}\nOwner: {full_name}\nAddress: {addy_list[0]}\nPrior Addresses: {", ".join(addy_list)}\nRelatives & Potentially Past Owners: {", ".join(family_names)}\nAdditional Info: {url}\n')
 
 if __name__=='__main__':

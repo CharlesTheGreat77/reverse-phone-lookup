@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"time"
-	"math/rand"
 	"encoding/json"
 	"net/http"
 	"flag"
@@ -210,7 +208,6 @@ func phonebookTarget(targetLinks []string) []Person {
 	// loop through each link
 	for _, url := range targetLinks {
 		c.Visit(url)
-		time.Sleep(time.Duration(rand.Intn(3)+1) * time.Second)
 	}
 	return persons
 }

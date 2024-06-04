@@ -17,6 +17,7 @@ apt install golang-go || brew install go
 git clone https://github.com/CharlesTheGreat77/reverse-phone-lookup
 cd reverse-phone-lookup
 go mod init main
+go mod tidy
 go build reverse-phone-lookup.go
 ```
 

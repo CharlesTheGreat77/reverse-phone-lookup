@@ -28,7 +28,7 @@ Usage of ./reverse-phone-lookup:
   -city string
         specify the city the target resides [Los Angelos]
   -fullname string
-        specify the first name to the target [bob]
+        specify the targets full name [John Doe]
   -h    show usage
   -phone string
         specify a phone number [777-999-0000]

@@ -63,7 +63,7 @@ func encode_args(args string) string {
 // main function to scrape and output result
 func main() {
 	number := flag.String("phone", "", "specify a phone number [777-999-0000]")
-	fullName := flag.String("fullname", "", "specify the first name to the target [bob]")
+	fullName := flag.String("fullname", "", "specify the targets full name [John Doe]")
 	state := flag.String("state", "", "specify the state the target resides [California]")
 	city := flag.String("city", "", "specify the city the target resides [Los Angelos]")
 	help := flag.Bool("h", false, "show usage")

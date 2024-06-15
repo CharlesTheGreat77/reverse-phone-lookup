@@ -15,10 +15,6 @@ func PhonebookSearch(usphonebookLink string) []string {
 	c := createCollector()
 	setCollyBehavior(c)
 
-	c.OnRequest(func(r *colly.Request) {
-		fmt.Printf("[*] Sending request to: %v\n", r.URL.String())
-	})
-
 	c.OnHTML("input[name='link']", func(e *colly.HTMLElement) {
 		link := e.Attr("value")
 		targetLinks = append(targetLinks, e.Request.AbsoluteURL(link))

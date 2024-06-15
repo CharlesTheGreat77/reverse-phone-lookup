@@ -4,7 +4,7 @@ It goes about such by scraping usphonebook.com
 
 ![osint](https://github.com/CharlesTheGreat77/reverse-phone-lookup/assets/27988707/03facb8c-4e1d-480c-92cf-d3297408d03d)
 
-# Prerequisite
+# Prerequisite 🚀
 | Prerequisite | Version |
 |--------------|---------|
 | Go           |  <=1.22 |
@@ -12,7 +12,7 @@ It goes about such by scraping usphonebook.com
 apt install golang-go || brew install go
 ```
 
-# Install
+# Install 💻
 ```
 git clone https://github.com/CharlesTheGreat77/reverse-phone-lookup
 cd reverse-phone-lookup
@@ -21,7 +21,7 @@ go mod tidy
 go build main.go
 ```
 
-# Usage
+# Usage 🎯
 ```
 ./main -h
 Usage of ./reverse-phone-lookup:

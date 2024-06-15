@@ -35,5 +35,11 @@ Usage of ./reverse-phone-lookup:
   -state string
         specify the state the target resides [California]
 ```
+
+# Example
+```
+./main -state California -city "Los Angelos" -fullname "John Doe"
+```
+
 # Note
 Im just getting use to Go so bear with me but once I get comfortable, I'll attempt to make it scalable for other sources

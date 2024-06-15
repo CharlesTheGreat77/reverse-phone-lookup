@@ -16,14 +16,14 @@ apt install golang-go || brew install go
 ```
 git clone https://github.com/CharlesTheGreat77/reverse-phone-lookup
 cd reverse-phone-lookup
-go mod init main
+go mod init reverse-phone-lookup
 go mod tidy
-go build reverse-phone-lookup.go
+go build main.go
 ```
 
 # Usage
 ```
-./reverse-phone-lookup -h
+./main -h
 Usage of ./reverse-phone-lookup:
   -city string
         specify the city the target resides [Los Angelos]

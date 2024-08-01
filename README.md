@@ -41,5 +41,34 @@ Usage of ./reverse-phone-lookup:
 ./main -state California -city "Los Angelos" -fullname "John Doe"
 ```
 
+# Discord Bot 🔨
+The reverse-phone-lookup is now available as a discord bot. To setup the discord bot follow these steps:
+1. Enter discord bot token in the **config.json** file.
+2. Download the discordgo package:
+```
+go get github.com/bwmarrin/discordgo
+```
+3. Build the discord bot executable:
+```
+go build usphonebook_bot.go
+```
+4. Run the executable!
+```
+./usphonebook_bot.go
+```
+## Discord bot commands
+```
+Usage: <@bot_id> lookup phone=<number> fullname=<name> state=<state> city=<city>
+```
+example:
+```
+@bot lookup state=road island city=providence fullname=john doe
+```
+This example searches usphonebook for **john doe** in the city and state specified.
+```
+@bot lookup phone=777-111-2222
+```
+
+
 # Note
 Im just getting use to Go so bear with me but once I get comfortable, I'll attempt to make it scalable for other sources

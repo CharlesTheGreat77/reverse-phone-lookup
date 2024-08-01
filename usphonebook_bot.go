@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"reverse-phone-lookup/bot"
@@ -15,6 +16,7 @@ func main() {
 	}
 
 	bot.Start()
+	fmt.Printf("[*] Bot initialized successfully..\n")
 
 	<-make(chan struct{})
 	return

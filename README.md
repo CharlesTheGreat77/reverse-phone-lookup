@@ -2,6 +2,9 @@
 Lightweight reverse phone/name lookup tool written in Go! ☺️ This is only for US individuals only.
 It goes about such by scraping usphonebook.com
 
+# Note
+No longer works due to cloudflare 😔 give me time
+
 ![osint](https://github.com/CharlesTheGreat77/reverse-phone-lookup/assets/27988707/03facb8c-4e1d-480c-92cf-d3297408d03d)
 
 # Prerequisite 🚀
